@@ -1,0 +1,6 @@
+@MegaApp.IdentitySecurity_HostAddress = http://localhost:5246
+
+GET {{MegaApp.IdentitySecurity_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
