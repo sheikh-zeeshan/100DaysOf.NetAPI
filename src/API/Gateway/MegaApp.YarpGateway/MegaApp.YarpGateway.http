@@ -1,0 +1,6 @@
+@MegaApp.YarpGateway_HostAddress = http://localhost:5286
+
+GET {{MegaApp.YarpGateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

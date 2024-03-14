@@ -1,0 +1,6 @@
+@MegaApp.KeycloakSecurity_HostAddress = http://localhost:5185
+
+GET {{MegaApp.KeycloakSecurity_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
