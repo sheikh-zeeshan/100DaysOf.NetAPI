@@ -1,4 +1,4 @@
-using MegaApp.Domain.BaseEntity;
+using MegaApp.Domain.Common;
 
 namespace MegaApp.Domain.Entities;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MegaApp.Domain.BaseEntity
+namespace MegaApp.Application.Interfaces.Persistance
 {
     public interface IAuditableEntity
     {
@@ -19,4 +19,6 @@ namespace MegaApp.Domain.BaseEntity
         //Editor
         public string? ModifieddBy { get; set; }
     }
+
+
 }

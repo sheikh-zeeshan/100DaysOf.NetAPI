@@ -1,4 +1,5 @@
-using MegaApp.Domain.BaseEntity;
+using MegaApp.Application.Interfaces.Persistance;
+using MegaApp.Domain.Common;
 using MegaApp.Persistance.Context;
 
 using Microsoft.EntityFrameworkCore;
@@ -13,33 +14,6 @@ public class UserRepository
 }
 
 
-public class GenericRepository<TEntity> : _IGenericRepository<TEntity> where TEntity : BaseEntity<TEntity>
-{
-    public Task DeleteAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<TEntity>> GetAllAsync()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<TEntity> GetByIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task InsertAsync(TEntity entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateAsync(TEntity entityToUpdate)
-    {
-        throw new NotImplementedException();
-    }
-}
 /*
 public class UnitOfWork : IUnitOfWork
 {

@@ -1,4 +1,4 @@
-using MegaApp.Domain.BaseEntity;
+using MegaApp.Domain.Common;
 
 namespace MegaApp.Domain.Entities;
 
@@ -31,7 +31,7 @@ public class LeaveRequest : BaseEntity<int>
     public int LeaveTypeId { get; set; }
 
     public DateOnly DateRequestedOn { get; set; }
-    public string RequestComments { get; set; }
+    public string RequestComments { get; set; } = string.Empty;
     public bool? Approved { get; set; }
     public bool? Cancelled { get; set; }
     public int RequestingEmpId { get; set; }

@@ -22,11 +22,9 @@ public interface IBaseRepository<T> where T : class
 {
     T Get(int id);
     List<T> GetAll();
-    List<T> Find(Expression<Func<T, bool>> predicate);
+   
     void Add(T entity);
-    void AddRange(List<T> entities);
-
-
+   
     // IEnumerable<T> GetAll();
     // T GetById(object id);
     // void Insert(T obj);
