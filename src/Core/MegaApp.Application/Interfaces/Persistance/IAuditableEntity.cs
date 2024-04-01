@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace MegaApp.Application.Interfaces.Persistance
 {
     public interface IAuditableEntity
@@ -13,12 +8,9 @@ namespace MegaApp.Application.Interfaces.Persistance
         //Author
         public string CreatedBy { get; set; }
 
-
         public DateTime? ModifiedOn { get; set; }
 
         //Editor
         public string? ModifieddBy { get; set; }
     }
-
-
 }

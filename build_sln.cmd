@@ -1,4 +1,5 @@
 
+dotnet clean ./BackendMegaApp.sln
 
 dotnet build ./BackendMegaApp.sln
 

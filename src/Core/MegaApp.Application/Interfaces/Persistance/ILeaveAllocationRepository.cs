@@ -2,14 +2,19 @@ using MegaApp.Domain.Entities;
 
 namespace MegaApp.Application.Interfaces.Persistance
 {
-    public interface ILeaveAllocationRepository : _IGenericRepository<LeaveAllocation>
+    public interface ILeaveAllocationRepository : IGenericRepository<LeaveAllocation>
     {
-        Task<LeaveAllocation> GetLeaveAllocationWithDetails(int id, CancellationToken token);
-        Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails(CancellationToken token);
-        Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails(string userId, CancellationToken token);
-        Task<bool> AllocationExists(string userId, int leaveTypeId, int period, CancellationToken token);
-        Task AddAllocations(List<LeaveAllocation> allocations, CancellationToken token);
-        Task<LeaveAllocation> GetUserAllocations(string userId, int leaveTypeId, CancellationToken token);
+        Task<LeaveAllocation> GetLeaveAllocationWithDetails(int id);
+
+        Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails();
+
+        Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails(int userId);
+
+        Task<bool> AllocationExists(int userId, int leaveTypeId, int period);
+
+        Task AddAllocations(List<LeaveAllocation> allocations);
+
+        Task<LeaveAllocation> GetUserAllocations(int userId, int leaveTypeId);
     }
 
     // public interface IGenericRepository<T> where T : BaseEntity
@@ -29,5 +34,4 @@ namespace MegaApp.Application.Interfaces.Persistance
     //     Task AddAllocations(List<LeaveAllocation> allocations);
     //     Task<LeaveAllocation> GetUserAllocations(string userId, int leaveTypeId);
     //}
-
 }

@@ -1,0 +1,22 @@
+
+
+Tenant has 0 or more hostels --DONE  (fully defined navigation inverse optional relationship)
+
+Hostel has 1 or more staff  -- DONE
+
+hostel has 1 or more rooms  -- DONE
+
+rooms has 0 or more occuptant -- DONE
+
+occupant has 0 or more payments -- ?
+
+hostel has one or many subscriptions  --?
+
+tenant has 1 address    -- DONE
+
+hostel has 1 address
+
+staff has 1 address
+
+occuptant has 1 address
+

@@ -1,12 +1,12 @@
+using System.Data.Common;
+using System.Diagnostics;
+
 using MegaApp.Domain.Entities;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-using System.Data.Common;
-using System.Diagnostics;
-
-namespace MegaApp.Persistance.Context;
+namespace MegaApp.Persistance.DatabaseContext;
 
 /*
 Logging, Auditing and Tracing
@@ -16,6 +16,7 @@ Validation and Business Logic
 Row level security
 Database error handling
 */
+
 public class PerformanceInterceptor : DbCommandInterceptor
 {
     private const long QuerySlowThreshold = 100; // milliseconds
@@ -39,7 +40,6 @@ public class PerformanceInterceptor : DbCommandInterceptor
     }
 }
 
-
 public class SoftDeleteInterceptor : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(
@@ -48,7 +48,7 @@ public class SoftDeleteInterceptor : SaveChangesInterceptor
     {
         foreach (var entry in eventData.Context.ChangeTracker.Entries())
         {
-            if (entry.State == EntityState.Deleted && entry.Entity is Employee entity)
+            if (entry.State == EntityState.Deleted && entry.Entity is TenantHostelEmployee entity)
             {
                 entity.IsDeleted = true;
                 entry.State = EntityState.Modified;

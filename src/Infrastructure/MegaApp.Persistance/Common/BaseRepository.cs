@@ -1,17 +1,24 @@
-
 using System.Linq.Expressions;
 
 using MegaApp.Application.Interfaces.Persistance;
 using MegaApp.Domain.Common;
-using MegaApp.Persistance.Context;
+
+using MegaApp.Persistance.DatabaseContext.Configurations;
 
 using Microsoft.EntityFrameworkCore;
 
 namespace MegaApp.Persistance.Common;
 
-public class GenericRepository<TEntity> : _IGenericRepository<TEntity> where TEntity : BaseEntity<TEntity>
+public class BaseRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity //<TEntity>
 {
-    public void AddRange(List<TEntity> entities, CancellationToken token)
+    public readonly MegaDbContext _context;
+
+    public BaseRepository(MegaDbContext context)
+    {
+        _context = context;
+    }
+
+    public Task AddRangeAsync(List<TEntity> entities, CancellationToken token)
     {
         throw new NotImplementedException();
     }
@@ -21,28 +28,38 @@ public class GenericRepository<TEntity> : _IGenericRepository<TEntity> where TEn
         throw new NotImplementedException();
     }
 
-    public List<TEntity> Find(Expression<Func<TEntity, bool>> predicate, CancellationToken token)
+    public Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken token)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken token)
+    public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken token)
     {
-        throw new NotImplementedException();
+        return await _context.Set<TEntity>().ShouldNotTrack(true).ToListAsync(token);
     }
 
-    public Task<TEntity> GetByIdAsync(int id, CancellationToken token)
+    public async Task<TEntity> GetByIdAsync(int id, CancellationToken token)
     {
-        throw new NotImplementedException();
+        return await _context.Set<TEntity>().ShouldNotTrack(true).FirstOrDefaultAsync(x => x.Id == id, token);
     }
 
-    public Task InsertAsync(TEntity entity, CancellationToken token)
+    public async Task InsertAsync(TEntity entity, CancellationToken token)
     {
-        throw new NotImplementedException();
+        await _context.AddAsync(entity);
+        await _context.SaveChangesAsync(token);
     }
 
-    public Task UpdateAsync(TEntity entityToUpdate, CancellationToken token)
+    public async Task UpdateAsync(TEntity entityToUpdate, CancellationToken token)
     {
-        throw new NotImplementedException();
+        _context.Update(entityToUpdate);
+        await _context.SaveChangesAsync(token);
+    }
+}
+
+public static class EFExtensions
+{
+    public static IQueryable<TEntity> ShouldNotTrack<TEntity>(this IQueryable<TEntity> source, bool noTrack = true) where TEntity : class
+    {
+        return noTrack ? source.AsNoTracking() : source;
     }
 }

@@ -1,18 +1,9 @@
-using MegaApp.Application.Interfaces.Persistance;
-using MegaApp.Domain.Common;
-using MegaApp.Persistance.Context;
-
-using Microsoft.EntityFrameworkCore;
-
 namespace MegaApp.Persistance.Repositories;
 
 public class UserRepository
 {
-
     //context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-
 }
-
 
 /*
 public class UnitOfWork : IUnitOfWork
@@ -29,7 +20,6 @@ public class UnitOfWork : IUnitOfWork
         _dbConnection = dbConnection;
         _dbConnection.Open();
         _dbTransaction = _dbConnection.BeginTransaction();
-
     }
 
     public _IGenericRepository<T> Repository<T>() where T : BaseEntity<T>

@@ -9,9 +9,6 @@ using Microsoft.EntityFrameworkCore.Query;
 
 //implementation of repository patterns
 
-
-
-
 namespace SampleAPI.AllInOne;
 public class TEntity
 {
@@ -22,9 +19,9 @@ public interface IBaseRepository<T> where T : class
 {
     T Get(int id);
     List<T> GetAll();
-   
+
     void Add(T entity);
-   
+
     // IEnumerable<T> GetAll();
     // T GetById(object id);
     // void Insert(T obj);
@@ -59,7 +56,6 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     public T Get(int id)
     {
         return _context.Set<T>().Find(id);
-
     }
 
     public List<T> GetAll()
@@ -76,10 +72,8 @@ public interface ICourseRepository : IBaseRepository<CourseEntity>
 
 public class CourseRepository : BaseRepository<CourseEntity>, ICourseRepository
 {
-
     public CourseRepository(SampleContext _context) : base(_context)
     {
-
     }
 
     public Expression<Func<Course, bool>> Predicate { get; protected set; }
@@ -102,17 +96,14 @@ public class CourseRepository : BaseRepository<CourseEntity>, ICourseRepository
     }
 }
 
-
 public interface IAuthorRepository : IBaseRepository<AuthorEntity>
 {
-
 }
 
 public class AuthorRepository : BaseRepository<AuthorEntity>, IAuthorRepository
 {
     public AuthorRepository(SampleContext _context) : base(_context)
     {
-
     }
 }
 public interface IUOW : IDisposable
@@ -121,7 +112,6 @@ public interface IUOW : IDisposable
     IAuthorRepository Authors { get; }
 
     int Complete();
-
 }
 
 public class UOW : IUOW
@@ -149,15 +139,12 @@ public class UOW : IUOW
     }
 }
 
-
 public interface ICourseManager
 {
-
 }
 
 public class CourseManager : ICourseManager
 {
-
 }
 
 public class CourseEntity
@@ -186,7 +173,6 @@ public class SampleContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         modelBuilder.Entity<Student>()
         .Property(s => s.MinAge)
         .HasColumnName("DefaultMinAge")
@@ -197,8 +183,6 @@ public class SampleContext : DbContext
     public DbSet<CourseEntity> Courses { get; set; }
 
     public DbSet<AuthorEntity> Authors { get; set; }
-
-
 }
 
 */

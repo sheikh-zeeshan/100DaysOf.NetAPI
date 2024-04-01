@@ -7,8 +7,8 @@ public class DbOptions
     public int CommandTimeout { get; set; }
     public bool EnableDetailedErrors { get; set; }
     public bool EnableSensitiveDataLogging { get; set; }
-
 }
+
 /*
 "DbOptions :{
     "MaxRetryCount:3,

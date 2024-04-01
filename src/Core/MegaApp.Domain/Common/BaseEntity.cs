@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace MegaApp.Domain.Common
 {
-    public abstract class BaseEntity<T>
+    // public class SuperBaseEntity
+    // {
+    // }
+    public abstract class BaseEntity //<T>  //: SuperBaseEntity
     {
-        public virtual T Id { get; set; }
+        public virtual int Id { get; set; }
     }
-
 }
