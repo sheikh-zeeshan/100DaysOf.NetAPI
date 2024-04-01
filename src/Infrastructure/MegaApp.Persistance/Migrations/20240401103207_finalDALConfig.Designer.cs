@@ -3,6 +3,7 @@ using System;
 using MegaApp.Persistance.DatabaseContext.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MegaApp.Persistance.Migrations
 {
     [DbContext(typeof(MegaDbContext))]
-    partial class MegaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240401103207_finalDALConfig")]
+    partial class finalDALConfig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");

@@ -17,6 +17,16 @@ b. Each query currently implies an additional network roundtrip to your database
 c. While some databases allow consuming the results of multiple queries at the same time (SQL Server with MARS, Sqlite), most allow only a single query to be active at any given point. So all results from earlier queries must be buffered in your application's memory before executing later queries, which leads to increased memory requirements.
 d. When including reference navigations as well as collection navigations, each one of the split queries will include joins to the reference navigations. This can degrade performance, particularly if there are many reference navigations. Please upvote #29182 if this is something you'd like to see fixed
 
+Define entities
+define relation ships
+create context class
+create migration
+implement generic repository pattern
+TODO: implement UOW and specification pattern
+default query behaviour in context class
+extension method for NOTRacking
+use split query instead of Include
+
 ##### Links used in this training
 
 1. https://www.youtube.com/@MohamadLawand/playlists

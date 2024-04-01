@@ -21,19 +21,21 @@ public class MegaDbContext : DbContext
 
         optionsBuilder.AddInterceptors(new PerformanceInterceptor());
 
-        optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        var configuration = 1;
+        if (1 == 2)
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // new AppUserConfiguration().Configure(modelBuilder.Entity<AppUser>());
-        // new LeaveTypeConfiguration().Configure(modelBuilder.Entity<LeaveType>());
-        // new TenantConfiguration().Configure(modelBuilder.Entity<Tenant>());
-        // new TenantHostelConfiguration().Configure(modelBuilder.Entity<TenantHostel>());
-        // new HostelRoomConfiguration().Configure(modelBuilder.Entity<HostelRoom>());
-        // new TenantHostelEmployeeConfiguration().Configure(modelBuilder.Entity<TenantHostelEmployee>());
-        // new TenantHostelSubscriptionConfiguration().Configure(modelBuilder.Entity<TenantHostelSubscription>());
-        // new RoomOccupantConfiguration().Configure(modelBuilder.Entity<RoomOccupant>());
+        new AppUserConfiguration().Configure(modelBuilder.Entity<AppUser>());
+        new LeaveTypeConfiguration().Configure(modelBuilder.Entity<LeaveType>());
+        new TenantConfiguration().Configure(modelBuilder.Entity<Tenant>());
+        new TenantHostelConfiguration().Configure(modelBuilder.Entity<TenantHostel>());
+        new HostelRoomConfiguration().Configure(modelBuilder.Entity<HostelRoom>());
+        new TenantHostelEmployeeConfiguration().Configure(modelBuilder.Entity<TenantHostelEmployee>());
+        //  new TenantHostelSubscriptionConfiguration().Configure(modelBuilder.Entity<TenantHostelSubscription>());
+        new RoomOccupantConfiguration().Configure(modelBuilder.Entity<RoomOccupant>());
 
         //modelBuilder.ApplyConfigurationsFromAssembly(typeof(BlogEntityTypeConfiguration).Assembly);
 
