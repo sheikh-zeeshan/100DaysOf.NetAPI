@@ -16,7 +16,7 @@ public class MegaDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite(@"Data source = ..\..\..\..\MegaAppDB.sdb;");
+        optionsBuilder.UseSqlite(@"Data source = ..\..\..\MegaAppDB.sdb;");
         //, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)- //use split behavioud by default then use AsSingleQuery
 
         optionsBuilder.AddInterceptors(new PerformanceInterceptor());
