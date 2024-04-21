@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 using MegaApp.Application.Interfaces.Persistance;
 using MegaApp.Domain.Common;
-
+using MegaApp.Persistance.DatabaseContext;
 using MegaApp.Persistance.DatabaseContext.Configurations;
 
 using Microsoft.EntityFrameworkCore;

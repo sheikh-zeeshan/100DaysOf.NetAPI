@@ -19,6 +19,8 @@ public class TenantHostelEmployee : AuditableEntity //<int>
     public LeaveAllocation LeaveAllocation { get; set; }
     public LeaveRequest LeaveRequest { get; set; }
 
+    public int TenantId { get; set; }
+
     //Reference types
     // public LeaveAllocation LeaveAllocation { get; set; }
 

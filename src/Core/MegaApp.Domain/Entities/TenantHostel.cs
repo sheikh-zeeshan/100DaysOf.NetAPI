@@ -8,8 +8,9 @@ namespace MegaApp.Domain.Entities;
 public class TenantHostel : AuditableEntity //<int>
 {
     public string Name { get; set; }
-    public bool IsPaid { get; set; }
+    // public bool IsPaid { get; set; }
 
+    public bool IsActive { get; set; }
     public Tenant Tenant { get; set; }
 
     [ForeignKey("Tenant")]

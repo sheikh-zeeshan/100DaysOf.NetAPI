@@ -1,6 +1,7 @@
 using MegaApp.Application.Interfaces.Persistance;
 using MegaApp.Domain.Entities;
 using MegaApp.Persistance.Common;
+using MegaApp.Persistance.DatabaseContext;
 using MegaApp.Persistance.DatabaseContext.Configurations;
 
 using Microsoft.EntityFrameworkCore;

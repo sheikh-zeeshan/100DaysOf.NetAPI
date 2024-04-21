@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
 using MegaApp.Domain.Common;
 
@@ -16,6 +17,15 @@ public class HostelRoom : AuditableEntity //<int>
 
     [ForeignKey("TenantHostelId")]
     public TenantHostel TenantHostel { get; set; }
+
+    public int TenantId
+    {
+        get; set;
+    }
+    public override string ToString()
+    {
+        return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+    }
 }
 
 //rooms has 0 or more occuptant

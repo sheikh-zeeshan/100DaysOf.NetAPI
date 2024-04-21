@@ -1,9 +1,11 @@
 using MegaApp.Domain.Common;
 using MegaApp.Domain.Entities;
+using MegaApp.Persistance.DatabaseContext.Configurations;
+using MegaApp.Persistance.DatabaseContext.Interceptors;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace MegaApp.Persistance.DatabaseContext.Configurations;
+namespace MegaApp.Persistance.DatabaseContext;
 
 public class MegaDbContext : DbContext
 {
@@ -16,12 +18,34 @@ public class MegaDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite(@"Data source = ..\..\..\MegaAppDB.sdb;");
+
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlite(@"Data source = D:\Git Source\CleanArch2024\100DaysOf.NetAPI\MegaAppDB.sdb;");
+
+            // optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=MegaApp;integrated security=true;MultipleActiveResultSets=True;Encrypt=False");
+
+
+            optionsBuilder.AddInterceptors(new PerformanceInterceptor());
+            optionsBuilder.EnableDetailedErrors(true);
+            optionsBuilder.EnableSensitiveDataLogging(true);
+        }
         //, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)- //use split behavioud by default then use AsSingleQuery
-
-        optionsBuilder.AddInterceptors(new PerformanceInterceptor());
-
         var configuration = 1;
+        if (configuration == 2)
+        {
+            //https://www.youtube.com/watch?v=bN57EDYD6M0&t=195s&ab_channel=MilanJovanovi%C4%87
+            optionsBuilder.UseSqlite("", sqliteOptionsAction =>
+            {
+                sqliteOptionsAction.CommandTimeout(30);
+                sqliteOptionsAction.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+
+                //sqliteOptionsAction.EnableRetryOnFailure(3);
+            });
+
+            // optionsBuilder.LogTo();
+        }
+
         if (1 == 2)
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
     }

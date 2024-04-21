@@ -49,7 +49,7 @@ public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
 {
     public void Configure(EntityTypeBuilder<Tenant> builder)
     {
-        builder.ToTable("Tenant").HasKey(c => c.Id);
+        builder.ToTable("Tenants").HasKey(c => c.Id);
         builder.Property(x => x.Id).HasColumnName("TenantId").ValueGeneratedOnAdd();
 
         builder
@@ -88,8 +88,11 @@ public class HostelRoomConfiguration : IEntityTypeConfiguration<HostelRoom>
 {
     public void Configure(EntityTypeBuilder<HostelRoom> builder)
     {
-        builder.ToTable("HostelRooms").HasKey(c => c.Id);
+        builder.ToTable("HostelRooms");
+        builder.HasKey(c => c.Id);
         builder.Property(c => c.Id).HasColumnName("HostelRoomId").ValueGeneratedOnAdd();
+
+        //builder.HasIndex(order => order.Id).IsUnique();
 
         builder
         .HasMany(c => c.RoomOccupants)

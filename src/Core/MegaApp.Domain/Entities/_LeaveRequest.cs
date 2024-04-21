@@ -15,6 +15,7 @@ public class LeaveRequest : BaseEntity //<int>
     public bool? Approved { get; set; }
     public bool Cancelled { get; set; }
 
+
     public byte[] RowVersion { get; set; }
 
     //Referece types

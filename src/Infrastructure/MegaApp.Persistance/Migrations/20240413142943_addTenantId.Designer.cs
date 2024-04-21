@@ -14,8 +14,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MegaApp.Persistance.Migrations
 {
     [DbContext(typeof(MegaDbContext))]
-    [Migration("20240401102017_finalDAL")]
-    partial class finalDAL
+    [Migration("20240413142943_addTenantId")]
+    partial class addTenantId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,7 +67,8 @@ namespace MegaApp.Persistance.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("AppUserId");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -75,14 +76,18 @@ namespace MegaApp.Persistance.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasMaxLength(250)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TEXT")
+                        .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasMaxLength(250)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
@@ -95,21 +100,24 @@ namespace MegaApp.Persistance.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("Version")
+                        .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AppUsers");
+                    b.ToTable("AppUsers", (string)null);
                 });
 
             modelBuilder.Entity("MegaApp.Domain.Entities.HostelRoom", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("HostelRoomId");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -138,11 +146,14 @@ namespace MegaApp.Persistance.Migrations
                     b.Property<int>("TenantHostelId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("TenantId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TenantHostelId");
 
-                    b.ToTable("HostelRoom");
+                    b.ToTable("HostelRooms", (string)null);
                 });
 
             modelBuilder.Entity("MegaApp.Domain.Entities.LeaveAllocation", b =>
@@ -223,7 +234,8 @@ namespace MegaApp.Persistance.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("LeaveTypeId");
 
                     b.Property<int>("DefaultDays")
                         .HasColumnType("INTEGER");
@@ -234,14 +246,15 @@ namespace MegaApp.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LeaveTypes");
+                    b.ToTable("LeaveTypes", (string)null);
                 });
 
             modelBuilder.Entity("MegaApp.Domain.Entities.RoomOccupant", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("RoomOccupantId");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -274,18 +287,22 @@ namespace MegaApp.Persistance.Migrations
                     b.Property<string>("ModifieddBy")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("TenantId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("HostelRoomId");
 
-                    b.ToTable("RoomOccupants");
+                    b.ToTable("RoomOccupants", (string)null);
                 });
 
             modelBuilder.Entity("MegaApp.Domain.Entities.Tenant", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("TenantId");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -305,14 +322,15 @@ namespace MegaApp.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tenants");
+                    b.ToTable("Tenant", (string)null);
                 });
 
             modelBuilder.Entity("MegaApp.Domain.Entities.TenantHostel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("TenantHostelId");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -344,14 +362,15 @@ namespace MegaApp.Persistance.Migrations
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("TenantHostels");
+                    b.ToTable("TenantHostels", (string)null);
                 });
 
             modelBuilder.Entity("MegaApp.Domain.Entities.TenantHostelEmployee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("TenantHostelEmployeeId");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
@@ -380,11 +399,14 @@ namespace MegaApp.Persistance.Migrations
                     b.Property<int>("TenantHostelId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("TenantId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TenantHostelId");
 
-                    b.ToTable("TenantHostelEmployees");
+                    b.ToTable("TenantHostelEmployees", (string)null);
                 });
 
             modelBuilder.Entity("Tag", b =>

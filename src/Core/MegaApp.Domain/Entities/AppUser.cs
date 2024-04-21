@@ -21,4 +21,21 @@ public class AppUser : BaseEntity //<int>
     public string UserName { get; set; }
 
     public Guid Version { get; set; }
+
+    public Tenant Tenant { get; set; }
+
+    [ForeignKey("Tenant")]
+    public int? TenantId { get; set; }
+
+    public int? RoleValue { get; set; }
+}
+
+
+public enum AppRoles
+{
+    SuperAdmin = 0,
+    TenantOwner = 1,
+    TenantUser = 2,
+    ApplicationUser = 4,
+
 }

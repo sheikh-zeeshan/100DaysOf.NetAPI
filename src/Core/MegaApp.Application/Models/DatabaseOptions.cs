@@ -1,6 +1,6 @@
 namespace MegaApp.Application.Models;
 
-public class DbOptions
+public class DatabaseOptions
 {
     public string ConnectionString { get; set; }
     public int MaxRetryCount { get; set; }

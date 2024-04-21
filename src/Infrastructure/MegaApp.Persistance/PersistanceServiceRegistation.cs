@@ -1,5 +1,6 @@
 using MegaApp.Application.Interfaces.Persistance;
 using MegaApp.Persistance.Common;
+using MegaApp.Persistance.DatabaseContext;
 using MegaApp.Persistance.DatabaseContext.Configurations;
 using MegaApp.Persistance.Repositories;
 
@@ -16,10 +17,11 @@ public static class PersistanceServiceRegistation
         services.AddDbContextPool<MegaDbContext>
         (options =>
 
-            options.UseSqlite(configuration.GetConnectionString("MegaAppDB")
-        // , providerOptions => providerOptions.EnableRetryOnFailure(3)
+          options.UseSqlite(configuration.GetConnectionString("MegaAppDB")/* , providerOptions => providerOptions.EnableRetryOnFailure(3)*/)
 
-        ));
+        //options.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=MegaApp;integrated security=true;MultipleActiveResultSets=True;Encrypt=False")
+
+        );
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(BaseRepository<>));
 

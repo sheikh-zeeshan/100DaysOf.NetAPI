@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace MegaApp.Persistance.Common;
 
-public class DbOptionsSetup : IConfigureOptions<DbOptions>
+public class DbOptionsSetup : IConfigureOptions<DatabaseOptions>
 {
     private const string _configSectionName = "DbOptions";
     private readonly IConfiguration _configuration;
@@ -15,7 +15,7 @@ public class DbOptionsSetup : IConfigureOptions<DbOptions>
         _configuration = configuration;
     }
 
-    public void Configure(DbOptions options)
+    public void Configure(DatabaseOptions options)
     {
         options.ConnectionString = _configuration.GetConnectionString("Database");
 

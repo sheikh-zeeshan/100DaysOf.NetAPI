@@ -9,6 +9,11 @@
 #### Day 3 - Work on Persistance layer
 1. Adding warning level in projects of Core and Infra layer
 
+#### Day 4 - Bogus data generation
+1. bogus api is used
+2. relationship updated where required
+3. missing parts are there (createdby, updatedby)
+
 #####Characteristics of split queries
 While split query avoids the performance issues associated with JOINs and cartesian explosion, it also has some drawbacks:
 
@@ -27,6 +32,14 @@ default query behaviour in context class
 extension method for NOTRacking
 use split query instead of Include
 
+
+#### Day 4 - Bogus Data generator
+data generated with random no of records
+extensively use bogus API
+few fields are reman empty
+
+
+
 ##### Links used in this training
 
 1. https://www.youtube.com/@MohamadLawand/playlists
@@ -42,7 +55,11 @@ use split query instead of Include
 11.https://www.learnentityframeworkcore5.com/
 12.https://www.learnentityframeworkcore.com/model
 13.https://www.entityframeworktutorial.net/efcore/raw-sql-queries-in-ef-core.aspx
-
+14.https://learn.microsoft.com/en-us/ef/core/managing-schemas/scaffolding/?tabs=dotnet-core-cli
+15.https://dev.to/ssukhpinder/20-essential-entity-framework-core-tips-optimize-performance-streamline-queries-and-enhance-data-handling-1jmb?fbclid=IwAR0rwEhfzZPOGJjx4PWqUKVMO_bM3yq5WhICvmz6X0wQ5ZbBd6JY7tq2KNs
+21.https://www.tutorialsteacher.com/core
+22.https://devblogs.microsoft.com/dotnet/resilience-and-chaos-engineering/
+23. https://devblogs.microsoft.com/dotnet/azure-migrate-app-and-code-assessment-tool-release/
 
 
 //editor.defaultFormatter
@@ -52,3 +69,6 @@ use split query instead of Include
  
 //  dotnet ef migrations add finalDAL  -p .\src\Infrastructure\MegaApp.Persistance\MegaApp.Persistance.csproj
 //  dotnet ef database update -p .\src\Infrastructure\MegaApp.Persistance\MegaApp.Persistance.csproj -v
+//  dotnet ef migrations script -o sqlscript.sql -p .\src\Infrastructure\MegaApp.Persistance\MegaApp.Persistance.csproj
+// dotnet build d:\Git Source\CleanArch2024\100DaysOf.NetAPI\test\MegaApp.DataGenerator\MegaApp.DataGenerator.csproj ////property:GenerateFullPaths=true /consoleloggerparameters:NoSummary 
+

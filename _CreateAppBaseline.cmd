@@ -121,3 +121,8 @@ dotnet build .\BackendMegaApp.sln
 @REM packages for each project
 @REM  dotnet add "d:\Git Source\CleanArch2024\100DaysOfCleanArch\src\Infrastructure\MegaApp.Persistance\MegaApp.Persistance.csproj" reference "d:\Git Source\CleanArch2024\100DaysOfCleanArch\src\Core\MegaApp.Domain\MegaApp.Domain.csproj"
 @REM dotnet ef dbcontext scaffold -c MyContext -o Model "Data Source=127.0.0.1;Initial Catalog=MyDb;persist security info=True;User id=sa; Password=*****" Microsoft.EntityFrameworkCore.SqlServer —-force
+
+
+@REM dotnet new "classlib" -lang "C#" -n "MegaApp.BogusData" -o "src\Infrastructure\MegaApp.BogusData"       
+@REM dotnet sln .\BackendMegaApp.sln add .\src\Infrastructure\MegaApp.BogusData\MegaApp.BogusData.csproj
+@REM dotnet add "d:\Git Source\CleanArch2024\100DaysOf.NetAPI\src\Infrastructure\MegaApp.BogusData\MegaApp.BogusData.csproj" reference "d:\Git Source\CleanArch2024\100DaysOf.NetAPI\src\Core\MegaApp.Domain\MegaApp.Domain.csproj"

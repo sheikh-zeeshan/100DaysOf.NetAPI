@@ -16,6 +16,8 @@ public class RoomOccupant : AuditableEntity //<int>
     public int? HostelRoomId { get; set; }
 
     public HostelRoom HostelRoom { get; set; }
+
+    public int TenantId { get; set; }
 }
 
 //rooms has 0 or more occuptant

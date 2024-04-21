@@ -14,7 +14,12 @@ public class Tenant : BaseEntity //<int>
 
     public string Phone { get; set; }
 
+    [NotMapped]
+    public List<string> Phones { get; set; }
+
     public List<TenantHostel> TenantHostels { get; set; }
 
     public Address Address { get; set; }
+
+    public AppUser AppUser { get; set; }
 }

@@ -6,7 +6,7 @@ using MegaApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace MegaApp.Persistance.DatabaseContext;
+namespace MegaApp.Persistance.DatabaseContext.Interceptors;
 
 /*
 Logging, Auditing and Tracing
