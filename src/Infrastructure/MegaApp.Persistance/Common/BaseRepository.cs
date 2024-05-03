@@ -33,7 +33,7 @@ public class BaseRepository<TEntity> : IGenericRepository<TEntity> where TEntity
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken token)
+    public async Task<List<TEntity>> GetAllAsync(CancellationToken token)
     {
         return await _context.Set<TEntity>().ShouldNotTrack(true).ToListAsync(token);
     }

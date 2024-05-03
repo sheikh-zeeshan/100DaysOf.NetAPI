@@ -4,7 +4,7 @@ namespace MegaApp.Application.Interfaces.Persistance
 {
     public interface IGenericRepository<T> where T : class //BaseEntity<T>
     {
-        Task<IEnumerable<T>> GetAllAsync(CancellationToken token);
+        Task<List<T>> GetAllAsync(CancellationToken token);
 
         Task<T> GetByIdAsync(int id, CancellationToken token);
 

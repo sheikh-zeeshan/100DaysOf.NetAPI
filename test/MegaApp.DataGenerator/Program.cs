@@ -36,7 +36,7 @@ void ExecuteDataIngestion()
 
     //SeedDataGenerator.InitAppUserData();
 
-    SeedDataGenerator.InitLeaveTypeData();
+    //SeedDataGenerator.InitLeaveTypeData();
 
 }
 

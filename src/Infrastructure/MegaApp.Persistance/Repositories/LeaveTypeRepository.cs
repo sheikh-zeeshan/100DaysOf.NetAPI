@@ -12,10 +12,12 @@ public class LeaveTypeRepository : BaseRepository<LeaveType>, ILeaveTypeReposito
 {
     public LeaveTypeRepository(MegaDbContext context) : base(context)
     {
+
     }
 
     public async Task<bool> IsLeaveTypeUnique(string name)
     {
+        //TODO: check performance of ANY or exists
         return await _context.LeaveTypes.AnyAsync(q => q.Name == name);
     }
 }

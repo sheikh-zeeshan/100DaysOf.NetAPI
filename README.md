@@ -13,6 +13,14 @@
 1. bogus api is used
 2. relationship updated where required
 3. missing parts are there (createdby, updatedby)
+4. data generated with random no of records
+5. few fields are reman empty
+
+#### Day 5 - Bogus data generation
+implementing CQRS and mapster for object mapping
+fluent validations is added, some validations and business checks are added
+feature folder under application project have command and query classes
+
 
 #####Characteristics of split queries
 While split query avoids the performance issues associated with JOINs and cartesian explosion, it also has some drawbacks:
@@ -31,13 +39,7 @@ TODO: implement UOW and specification pattern
 default query behaviour in context class
 extension method for NOTRacking
 use split query instead of Include
-
-
-#### Day 4 - Bogus Data generator
-data generated with random no of records
-extensively use bogus API
-few fields are reman empty
-
+ 
 
 
 ##### Links used in this training
@@ -60,7 +62,8 @@ few fields are reman empty
 21.https://www.tutorialsteacher.com/core
 22.https://devblogs.microsoft.com/dotnet/resilience-and-chaos-engineering/
 23. https://devblogs.microsoft.com/dotnet/azure-migrate-app-and-code-assessment-tool-release/
-
+24. https://c4model.com/#Tooling
+25. https://structurizr.com/
 
 //editor.defaultFormatter
 //dotnet tool install --global dotnet-ef

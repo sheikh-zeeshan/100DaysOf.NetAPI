@@ -32,3 +32,22 @@ public static class PersistanceServiceRegistation
         return services;
     }
 }
+
+
+/*
+public static class ConfigureServices
+{
+    public static IServiceCollection AddInfrastructureServices
+        (this IServiceCollection services, IConfiguration configuration)
+
+    {
+        services.AddDbContext<MegaDbContext>(options =>
+            options.UseSqlite(configuration.GetConnectionString("BlogBbContext") ??
+                throw new InvalidOperationException("connection string 'BlogBbContext not found '"))
+        );
+
+        services.AddScoped(typeof(IGenericRepository<>), typeof(BaseRepository<>));
+        return services;
+
+    }
+}*/
