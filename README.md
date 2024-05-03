@@ -16,11 +16,23 @@
 4. data generated with random no of records
 5. few fields are reman empty
 
-#### Day 5 - Bogus data generation
+#### Day 5 - Application layer - CQRS-Mapster - Validations
 implementing CQRS and mapster for object mapping
 fluent validations is added, some validations and business checks are added
 feature folder under application project have command and query classes
 
+#### Day 6 - Infrastrcture layer - thrid party services
+third party services
+Email service
+logger service
+    -> correlation id - pending
+    -> serilog + enhancers + sinks - pending
+    -> seq - pending
+    -> 
+Information Logs => standard log level used wjen something has happened as exepcted
+Debug Logs => a very imformational log level that is more than we might need for every day use
+Warning Logs => some thing which is not error but is not normal has happened
+Error => error or exception or shome thing unexpected happened
 
 #####Characteristics of split queries
 While split query avoids the performance issues associated with JOINs and cartesian explosion, it also has some drawbacks:

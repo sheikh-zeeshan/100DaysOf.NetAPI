@@ -11,6 +11,7 @@ using MapsterMapper;
 using MediatR;
 
 using MegaApp.Application.Exceptions;
+using MegaApp.Application.Interfaces.Logging;
 using MegaApp.Application.Interfaces.Persistance;
 using MegaApp.Application.Validators;
 
@@ -29,13 +30,15 @@ public class CreateLeaveTypeCommandHandler : IRequestHandler<CreateLeaveTypeComm
     readonly IMapper _mapper;
     readonly ILeaveTypeRepository _leaveTypeRepo;
     readonly IValidator<CreateLeaveTypeCommand> _validator;
+    private readonly IAppLogger<CreateLeaveTypeCommandHandler> _appLogger;
 
-    public CreateLeaveTypeCommandHandler(IMapper mapper, ILeaveTypeRepository leaveTypeRepository, IValidator<CreateLeaveTypeCommand> validator)
+    public CreateLeaveTypeCommandHandler(IMapper mapper, ILeaveTypeRepository leaveTypeRepository
+    , IValidator<CreateLeaveTypeCommand> validator, IAppLogger<CreateLeaveTypeCommandHandler> appLogger)
     {
         this._mapper = mapper;
         this._leaveTypeRepo = leaveTypeRepository;
         _validator = validator;
-
+        _appLogger = appLogger;
     }
 
 
@@ -48,6 +51,8 @@ public class CreateLeaveTypeCommandHandler : IRequestHandler<CreateLeaveTypeComm
         var validResult = await _validator.ValidateAsync(request, cancellationToken);
         if (validResult.Errors.Any())
         {
+            _appLogger.LogWarning("Errors occured");
+
             throw new BadRequestException("Model is not correct", validResult);
         }
         //balidate incoming data
