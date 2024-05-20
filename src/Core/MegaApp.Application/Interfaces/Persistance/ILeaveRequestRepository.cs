@@ -8,7 +8,7 @@ namespace MegaApp.Application.Interfaces.Persistance
 
         Task<List<LeaveRequest>> GetLeaveRequestsWithDetails();
 
-        Task<List<LeaveRequest>> GetLeaveRequestsWithDetails(int userId);
+        Task<List<LeaveRequest>> GetUserLeaveRequestsWithDetails(int userId);
     }
 
     // public interface IGenericRepository<T> where T : BaseEntity

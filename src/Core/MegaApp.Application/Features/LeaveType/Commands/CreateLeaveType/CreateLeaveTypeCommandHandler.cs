@@ -40,10 +40,6 @@ public class CreateLeaveTypeCommandHandler : IRequestHandler<CreateLeaveTypeComm
         _validator = validator;
         _appLogger = appLogger;
     }
-
-
-
-
     public async Task<int> Handle(CreateLeaveTypeCommand request, CancellationToken cancellationToken)
     {
 

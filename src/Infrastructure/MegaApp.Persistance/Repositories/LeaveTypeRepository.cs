@@ -6,6 +6,7 @@ using MegaApp.Persistance.DatabaseContext.Configurations;
 
 using Microsoft.EntityFrameworkCore;
 
+
 namespace MegaApp.Persistance.Repositories;
 
 public class LeaveTypeRepository : BaseRepository<LeaveType>, ILeaveTypeRepository
@@ -18,6 +19,7 @@ public class LeaveTypeRepository : BaseRepository<LeaveType>, ILeaveTypeReposito
     public async Task<bool> IsLeaveTypeUnique(string name)
     {
         //TODO: check performance of ANY or exists
-        return await _context.LeaveTypes.AnyAsync(q => q.Name == name);
+        var result = await _context.LeaveTypes.AnyAsync(q => q.Name == name);
+        return !result;
     }
 }

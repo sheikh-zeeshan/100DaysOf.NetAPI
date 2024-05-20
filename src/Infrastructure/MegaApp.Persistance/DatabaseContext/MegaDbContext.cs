@@ -1,19 +1,25 @@
+using System.Text;
+
 using MegaApp.Domain.Common;
 using MegaApp.Domain.Entities;
 using MegaApp.Persistance.DatabaseContext.Configurations;
 using MegaApp.Persistance.DatabaseContext.Interceptors;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace MegaApp.Persistance.DatabaseContext;
 
 public class MegaDbContext : DbContext
 {
+    private readonly IConfiguration _configuration;
+
     public MegaDbContext()
     { }
 
-    public MegaDbContext(DbContextOptions<MegaDbContext> options) : base(options)
+    public MegaDbContext(DbContextOptions<MegaDbContext> options, IConfiguration configuration) : base(options)
     {
+        _configuration = configuration;
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -21,7 +27,7 @@ public class MegaDbContext : DbContext
 
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlite(@"Data source = D:\Git Source\CleanArch2024\100DaysOf.NetAPI\MegaAppDB.sdb;");
+            optionsBuilder.UseSqlite(_configuration.GetConnectionString("DefaultConnectionString"));
 
             // optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=MegaApp;integrated security=true;MultipleActiveResultSets=True;Encrypt=False");
 
@@ -44,6 +50,7 @@ public class MegaDbContext : DbContext
             });
 
             // optionsBuilder.LogTo();
+
         }
 
         if (1 == 2)
@@ -89,33 +96,120 @@ public class MegaDbContext : DbContext
                     .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified))
         {
             if (entry.State == EntityState.Modified)
+            {
                 entry.Entity.ModifiedOn = DateTime.Now;
+
+                // entry.OriginalValues["RowVersion"] = entry.CurrentValues["RowVersion"];
+            }
             else
                 entry.Entity.CreatedOn = DateTime.Now;
         }
+
+        // foreach (var item in ChangeTracker.Entries().Where(x => x.State == EntityState.Modified))
+        // {
+        //     item.OriginalValues["RowVersion"] = item.CurrentValues["RowVersion"];
+        // }
     }
 
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
     {
-        SetAuditFields();
-        return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        try
+        {
+            SetAuditFields();
+
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        catch (DbUpdateException ex)
+        {
+            var builder = new StringBuilder("A DbUpdateException was caught while saving changes. ");
+
+            foreach (var entry in ex.Entries)
+            {
+
+                builder.AppendFormat("Type: {0} was part of the problem. ", entry.Entity.GetType().Name);
+
+            }
+            throw new Exception(builder.ToString(), ex); ;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
     {
-        SetAuditFields();
-        return base.SaveChangesAsync(cancellationToken);
+        try
+        {
+            SetAuditFields();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateException ex)
+        {
+            var builder = new StringBuilder("A DbUpdateException was caught while saving changes. ");
+
+            foreach (var entry in ex.Entries)
+            {
+
+                builder.AppendFormat("Type: {0} was part of the problem. ", entry.Entity.GetType().Name);
+
+            }
+            throw new Exception(builder.ToString(), ex); ;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 
     public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {
-        SetAuditFields();
-        return base.SaveChanges(acceptAllChangesOnSuccess);
+        try
+        {
+            SetAuditFields();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+        catch (DbUpdateException ex)
+        {
+            var builder = new StringBuilder("A DbUpdateException was caught while saving changes. ");
+
+            foreach (var entry in ex.Entries)
+            {
+
+                builder.AppendFormat("Type: {0} was part of the problem. ", entry.Entity.GetType().Name);
+
+            }
+            throw new Exception(builder.ToString(), ex); ;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 
     public override int SaveChanges()
     {
-        SetAuditFields();
-        return base.SaveChanges();
+        try
+        {
+            SetAuditFields();
+            return base.SaveChanges();
+        }
+        catch (DbUpdateException ex)
+        {
+            var builder = new StringBuilder("A DbUpdateException was caught while saving changes. ");
+
+            foreach (var entry in ex.Entries)
+            {
+
+                builder.AppendFormat("Type: {0} was part of the problem. ", entry.Entity.GetType().Name);
+
+            }
+            throw new Exception(builder.ToString(), ex); ;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 }

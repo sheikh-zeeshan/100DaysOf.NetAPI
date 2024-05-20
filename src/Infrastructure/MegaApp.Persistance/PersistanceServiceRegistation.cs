@@ -17,10 +17,8 @@ public static class PersistanceServiceRegistation
         services.AddDbContextPool<MegaDbContext>
         (options =>
 
-          options.UseSqlite(configuration.GetConnectionString("MegaAppDB")/* , providerOptions => providerOptions.EnableRetryOnFailure(3)*/)
-
+          options.UseSqlite(configuration.GetConnectionString("DefaultConnectionString")/* , providerOptions => providerOptions.EnableRetryOnFailure(3)*/)
         //options.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=MegaApp;integrated security=true;MultipleActiveResultSets=True;Encrypt=False")
-
         );
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(BaseRepository<>));
@@ -28,6 +26,7 @@ public static class PersistanceServiceRegistation
         services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
         services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
         services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
+        services.AddScoped<ITenantRepository, TenantRepository>();
 
         return services;
     }

@@ -8,7 +8,7 @@ namespace MegaApp.Application.Interfaces.Persistance
 
         Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails();
 
-        Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails(int userId);
+        Task<List<LeaveAllocation>> GetUserLeaveAllocationsWithDetails(int userId);
 
         Task<bool> AllocationExists(int userId, int leaveTypeId, int period);
 

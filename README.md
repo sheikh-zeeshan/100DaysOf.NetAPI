@@ -28,7 +28,43 @@ logger service
     -> correlation id - pending
     -> serilog + enhancers + sinks - pending
     -> seq - pending
-    -> 
+    -> default logging levels in app config json file - Pending
+
+#### Day 7 - API setup
+CQRS usage
+add controllers and add respective feature using CQRS-MEDIATR package
+all features are working fine
+TODO: complete tenant features
+
+# how to use MEDIATR 
+# Get All 
+DTO to return data
+Get Leave Allocation Query
+Query class that Inherit from IRequest of List of DTO
+Handler class inherit from IRquestHandler of Query class and list of DTO
+
+# Get details by Id
+create record of query of int type inherit from Irequest of DTO
+create handler class that inherit from IrequestHandler of query recod and dto
+
+# Create 
+createCommand class inherit from Irequest of int
+Handler class injherit from IRequestHandler of Command class and int
+
+# Update
+create update command class inherit from IRequest of unit
+create handler class inherit from IRequesthandler of update command class and unit
+
+# Delete
+crete delete command inherit from Irequest of unit
+create handler class inherits from Irequesthandler of delete command and unit 
+
+#Validators:
+class inherit from AbstractValidator of Command DTO class
+
+
+
+
 Information Logs => standard log level used wjen something has happened as exepcted
 Debug Logs => a very imformational log level that is more than we might need for every day use
 Warning Logs => some thing which is not error but is not normal has happened
@@ -52,7 +88,9 @@ default query behaviour in context class
 extension method for NOTRacking
 use split query instead of Include
  
-
+##TODOs:
+EF CORE HILO
+EF CORE Concurrency
 
 ##### Links used in this training
 
@@ -76,7 +114,7 @@ use split query instead of Include
 23. https://devblogs.microsoft.com/dotnet/azure-migrate-app-and-code-assessment-tool-release/
 24. https://c4model.com/#Tooling
 25. https://structurizr.com/
-
+26. https://medium.com/c-sharp-progarmming/dbconcurrency-with-ef-core-3f1c0d6475d1
 //editor.defaultFormatter
 //dotnet tool install --global dotnet-ef
 //dotnet tool update --global dotnet-ef

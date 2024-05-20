@@ -23,7 +23,7 @@ public class LeaveRequestRepository : BaseRepository<LeaveRequest>, ILeaveReques
         return leaveRequests;
     }
 
-    public async Task<List<LeaveRequest>> GetLeaveRequestsWithDetails(int userId)
+    public async Task<List<LeaveRequest>> GetUserLeaveRequestsWithDetails(int userId)
     {
         var leaveRequests = await _context.LeaveRequests
             .Where(q => q.RequestingEmployeeId == userId)

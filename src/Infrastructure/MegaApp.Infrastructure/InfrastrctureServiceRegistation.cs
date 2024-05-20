@@ -2,6 +2,7 @@
 
 
 using MegaApp.Application.Interfaces.Email;
+using MegaApp.Application.Interfaces.Logging;
 using MegaApp.Application.Models;
 using MegaApp.Infrastructure.EmailService;
 using MegaApp.Infrastructure.Logger;
@@ -20,7 +21,7 @@ public static class InfrastrctureServiceRegistation
         services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
         services.AddTransient<IEmailSender, EmailSender>();
 
-        services.AddScoped(typeof(ILogger<>), typeof(LoggerAdapter<>));
+        services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
 
 
         return services;

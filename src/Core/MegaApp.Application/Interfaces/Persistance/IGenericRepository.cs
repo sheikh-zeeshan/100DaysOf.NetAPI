@@ -13,6 +13,8 @@ namespace MegaApp.Application.Interfaces.Persistance
         Task UpdateAsync(T entityToUpdate, CancellationToken token);
 
         Task DeleteAsync(int id, CancellationToken token);
+        Task DeleteAsync(T entity, CancellationToken token);
+
 
         Task AddRangeAsync(List<T> entities, CancellationToken token);
 

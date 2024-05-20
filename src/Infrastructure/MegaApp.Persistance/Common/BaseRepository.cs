@@ -23,9 +23,19 @@ public class BaseRepository<TEntity> : IGenericRepository<TEntity> where TEntity
         throw new NotImplementedException();
     }
 
-    public Task DeleteAsync(int id, CancellationToken token)
+    public async Task DeleteAsync(int id, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var itemToDelete = await GetByIdAsync(id, token);
+        if (itemToDelete != null)
+        {
+            await DeleteAsync(itemToDelete, token);
+        }
+    }
+
+    public async Task DeleteAsync(TEntity entity, CancellationToken token)
+    {
+        _context.Remove(entity);
+        await _context.SaveChangesAsync();
     }
 
     public Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken token)
@@ -33,9 +43,9 @@ public class BaseRepository<TEntity> : IGenericRepository<TEntity> where TEntity
         throw new NotImplementedException();
     }
 
-    public async Task<List<TEntity>> GetAllAsync(CancellationToken token)
+    public virtual async Task<List<TEntity>> GetAllAsync(CancellationToken token)
     {
-        return await _context.Set<TEntity>().ShouldNotTrack(true).ToListAsync(token);
+        return await _context.Set<TEntity>().ShouldNotTrack(true).Take(1).ToListAsync(token);
     }
 
     public async Task<TEntity> GetByIdAsync(int id, CancellationToken token)
@@ -51,8 +61,15 @@ public class BaseRepository<TEntity> : IGenericRepository<TEntity> where TEntity
 
     public async Task UpdateAsync(TEntity entityToUpdate, CancellationToken token)
     {
-        _context.Update(entityToUpdate);
-        await _context.SaveChangesAsync(token);
+        try
+        {
+            _context.Update(entityToUpdate);
+            var result = await _context.SaveChangesAsync(token);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 }
 

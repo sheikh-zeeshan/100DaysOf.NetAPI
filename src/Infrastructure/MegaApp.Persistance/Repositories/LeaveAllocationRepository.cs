@@ -37,7 +37,7 @@ public class LeaveAllocationRepository : BaseRepository<LeaveAllocation>, ILeave
         return leaveAllocations;
     }
 
-    public async Task<List<LeaveAllocation>> GetLeaveAllocationsWithDetails(int userId)
+    public async Task<List<LeaveAllocation>> GetUserLeaveAllocationsWithDetails(int userId)
     {
         var leaveAllocations = await _context.LeaveAllocations.Where(q => q.EmployeeId == userId)
            .Include(q => q.LeaveType)

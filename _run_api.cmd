@@ -1,4 +1,4 @@
 
 
 
-dotnet watch run --project .\BOD.ConsoleClient\BOD.ConsoleClient.csproj
+dotnet watch run --project .\src\API\MegaApp.HostelManagementAPI\MegaApp.HostelManagementAPI.csproj
