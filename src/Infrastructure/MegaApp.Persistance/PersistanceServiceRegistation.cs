@@ -27,6 +27,7 @@ public static class PersistanceServiceRegistation
         services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
         services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
         services.AddScoped<ITenantRepository, TenantRepository>();
+        services.AddScoped<ITagRepository, TagRepository>();
 
         return services;
     }

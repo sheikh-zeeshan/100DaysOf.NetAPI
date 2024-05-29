@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using MegaApp.Domain.Common;
 using MegaApp.Domain.Entities;
 
+namespace MegaApp.Domain.Entities;
+
 [Table("Tags")]
 public class Tag : BaseEntity
 {

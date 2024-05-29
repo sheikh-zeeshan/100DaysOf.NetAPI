@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MediatR;
 
 using MegaApp.Application.Features.Queries;
+using MegaApp.Application.Features.Tenant.Commands;
 
 using Microsoft.AspNetCore.Mvc;
 //using MegaApp.HostelManagementAPI.Models;
@@ -36,5 +37,15 @@ namespace MegaApp.HostelManagementAPI.Controllers
         }
 
 
+        [HttpPost]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> Post(CreateTenantCommand model)
+        {
+            var response = await _mediator.Send(model);
+            return Ok();
+        }
     }
 }

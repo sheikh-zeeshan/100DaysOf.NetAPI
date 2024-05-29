@@ -1,4 +1,6 @@
 
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Text.Json;
 
 using Mapster;
@@ -26,12 +28,12 @@ public class TenentQueryDTO
     public string Zip { get; set; }
     public int AddressId { get; set; }
     public int Id { get; set; }
+    public int UserId { get; internal set; }
+
     public override string ToString()
     {
         return JsonSerializer.Serialize(this);
     }
-
-
 }
 
 public class GetAllTenantQuery : IRequest<List<TenentQueryDTO>> { }
@@ -48,6 +50,12 @@ public class GetAllTenantQueryHandler : IRequestHandler<GetAllTenantQuery, List<
 
     public async Task<List<TenentQueryDTO>> Handle(GetAllTenantQuery request, CancellationToken cancellationToken)
     {
+        // // // var sqids = new SqidsEncode<int>(new()
+        // // // {
+        // // //     AssemblyCopyrightAttribute = "mTHiv07",
+        // // //     MinLengthAttribute = 7
+        // // // });
+        // // // ; sqids.Encode(1402)
 
         //TODO: paging , sorting and filtering should be applied here
         var data = await _repo.GetAllAsync(cancellationToken);

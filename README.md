@@ -1,5 +1,8 @@
 # 100DaysOf.NetAPI
 100 days of code.
+#### Day 8 - API enhancements
+1. add heriracal data and add complex mapping 
+
 
 #### Day 1 - initial project strcture using clean architecture is created
 
@@ -35,6 +38,8 @@ CQRS usage
 add controllers and add respective feature using CQRS-MEDIATR package
 all features are working fine
 TODO: complete tenant features
+
+#### Day 8 - API controller completion
 
 # how to use MEDIATR 
 # Get All 
@@ -125,3 +130,25 @@ EF CORE Concurrency
 //  dotnet ef migrations script -o sqlscript.sql -p .\src\Infrastructure\MegaApp.Persistance\MegaApp.Persistance.csproj
 // dotnet build d:\Git Source\CleanArch2024\100DaysOf.NetAPI\test\MegaApp.DataGenerator\MegaApp.DataGenerator.csproj ////property:GenerateFullPaths=true /consoleloggerparameters:NoSummary 
 
+
+### Difference between Adapt and Map method of Maspter
+
+Map Method
+The Map method is used to perform mapping between two objects where you already have both instances created. It maps the properties from the source object to the existing destination object.
+
+Adapt Method
+The Adapt method is more versatile and commonly used. It creates a new instance of the destination type and maps the properties from the source object to this new instance.
+
+Differences and Use Cases
+Instance Creation:
+
+Map: Requires an existing instance of the destination object. It maps the properties from the source object to this existing instance.
+Adapt: Does not require an existing instance of the destination object. It creates a new instance of the destination object and maps the properties from the source object to this new instance.
+Usage Scenario:
+
+Map: Use when you already have a destination object that you want to populate with values from the source object. This is useful when the destination object is already partially populated or requires specific initialization.
+Adapt: Use when you want to create a new destination object directly from the source object. This is the most common use case and is typically simpler and cleaner to use.
+Code Clarity:
+
+Map: Can be slightly more verbose as it involves creating and passing an existing destination object.
+Adapt: Provides a more streamlined approach, especially in cases where you don't need to manage the destination object's lifecycle separately.

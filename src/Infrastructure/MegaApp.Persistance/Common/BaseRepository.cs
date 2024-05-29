@@ -18,12 +18,12 @@ public class BaseRepository<TEntity> : IGenericRepository<TEntity> where TEntity
         _context = context;
     }
 
-    public Task AddRangeAsync(List<TEntity> entities, CancellationToken token)
+    public virtual async Task AddRangeAsync(List<TEntity> entities, CancellationToken token)
     {
         throw new NotImplementedException();
     }
 
-    public async Task DeleteAsync(int id, CancellationToken token)
+    public virtual async Task DeleteAsync(int id, CancellationToken token)
     {
         var itemToDelete = await GetByIdAsync(id, token);
         if (itemToDelete != null)
@@ -32,13 +32,13 @@ public class BaseRepository<TEntity> : IGenericRepository<TEntity> where TEntity
         }
     }
 
-    public async Task DeleteAsync(TEntity entity, CancellationToken token)
+    public virtual async Task DeleteAsync(TEntity entity, CancellationToken token)
     {
         _context.Remove(entity);
         await _context.SaveChangesAsync();
     }
 
-    public Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken token)
+    public virtual Task<List<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken token)
     {
         throw new NotImplementedException();
     }
@@ -53,13 +53,13 @@ public class BaseRepository<TEntity> : IGenericRepository<TEntity> where TEntity
         return await _context.Set<TEntity>().ShouldNotTrack(true).FirstOrDefaultAsync(x => x.Id == id, token);
     }
 
-    public async Task InsertAsync(TEntity entity, CancellationToken token)
+    public virtual async Task InsertAsync(TEntity entity, CancellationToken token)
     {
         await _context.AddAsync(entity);
         await _context.SaveChangesAsync(token);
     }
 
-    public async Task UpdateAsync(TEntity entityToUpdate, CancellationToken token)
+    public virtual async Task UpdateAsync(TEntity entityToUpdate, CancellationToken token)
     {
         try
         {

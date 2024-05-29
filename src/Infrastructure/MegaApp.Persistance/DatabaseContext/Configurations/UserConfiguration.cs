@@ -116,6 +116,11 @@ public class TenantHostelEmployeeConfiguration : IEntityTypeConfiguration<Tenant
         builder.HasOne<LeaveRequest>(c => c.LeaveRequest)
         .WithOne(c => c.TenantHostelEmployee)
         .HasForeignKey<LeaveRequest>(c => c.RequestingEmployeeId);
+
+        //TODO: Zeeshan
+        //builder.Property(x=>x.Id).UseHiLo("tenant_hostel_employee_hilo");
+        // builder.Property(x => x.Id).UseIdentityColumn();
+        // builder.Property(x => x.Id).UseSequence();
     }
 }
 
