@@ -1,7 +1,3 @@
-
-
-
-
 using FluentValidation;
 
 using Mapster;
@@ -16,8 +12,6 @@ using MegaApp.Application.Interfaces.Persistance;
 using MegaApp.Application.Validators;
 
 namespace MegaApp.Application.Features.LeaveType.Commands;
-
-
 
 public class CreateLeaveTypeCommand : IRequest<int>
 {

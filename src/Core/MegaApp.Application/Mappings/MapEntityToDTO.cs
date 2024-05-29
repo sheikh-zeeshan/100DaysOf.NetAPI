@@ -7,7 +7,7 @@ using MegaApp.Application.Features.LeaveAllocation.Queries;
 using MegaApp.Application.Features.LeaveRequest.Queries;
 using MegaApp.Application.Features.LeaveType.Queries;
 using MegaApp.Application.Features.Queries;
-
+using MegaApp.Application.Features.Tenant.Commands;
 using MegaApp.Domain.Entities;
 
 namespace MegaApp.Application;
@@ -20,9 +20,13 @@ public static class MapEntityToDTO
         MapLeaveTypeToLeaveTypeDetailsDTO();
         MapLeaveAllocationToDTO();
         MapLeaveRequestDTO();
-        MapTenantAndAddressDTO();
+        MapTenantQueryAndAddressDTO();
+
+        MapTenantAndCreateCommandDTO();
 
         TypeAdapterConfig.GlobalSettings.Scan(Assembly.GetExecutingAssembly());
+
+        TypeAdapterConfig.GlobalSettings.Compile(true);
     }
 
     private static void MapLeaveTypeToLeaveTypeDTO() //IServiceCollection services
@@ -105,41 +109,75 @@ public static class MapEntityToDTO
                    .TwoWays();
     }
 
-    static void MapTenantAndAddressDTO()
+    static void MapTenantQueryAndAddressDTO()
     {
         //     TypeAdapterConfig<Dto, Poco>.NewConfig()
         // .Map(poco => poco, dto => dto.SubDto);
 
-        TypeAdapterConfig<Tenant, TenentQueryDTO>
-        .NewConfig()
-        .Map(dest => dest.Id, src => src.Id)
-        .Map(dest => dest.Name, src => src.TenantName)
-        .Map(dest => dest.Email, src => src.Email)
-        .Map(dest => dest.Phone, src => src.Phone)
+        var config = TypeAdapterConfig<Tenant, TenentQueryDTO>
+         .NewConfig()
+         .Map(dest => dest.Id, src => src.Id)
+         .Map(dest => dest.Name, src => src.TenantName)
+         .Map(dest => dest.Description, src => src.Description)
+         .Map(dest => dest.Email, src => src.Email)
+         .Map(dest => dest.Phone, src => src.Phone)
+         //Address
+         .Map(dest => dest.AddressLine1, src => src.Address.AddressLine1)
+         .Map(dest => dest.AddressLine2, src => "==Missing==")
+         .Map(dest => dest.City, src => src.Address.City)
+         .Map(dest => dest.State, src => src.Address.State)
+         .Map(dest => dest.Zip, src => src.Address.ZipCode)
+         .Map(dest => dest.AddressId, src => src.Address.Id)
+         //UserName
+         .Map(dest => dest.UserId, src => src.AppUser.Id)
 
-        .Map(dest => dest.AddressLine1, src => src.Address.AddressLine1)
-        .Map(dest => dest.AddressLine2, src => "==Missing==")
-        .Map(dest => dest.City, src => src.Address.City)
-        .Map(dest => dest.State, src => src.Address.State)
-        .Map(dest => dest.Zip, src => src.Address.ZipCode)
-    .Map(dest => dest.AddressId, src => src.Address.Id)
-        //.Map(dest => dest.Tags, src => src.PostTags.Adapt<TagDto>());
-        //.Unflattening(true)
-        .TwoWays();
+         //.Map(dest => dest.Tags, src => src.PostTags.Adapt<TagDto>()).Unflattening(true)
+         .TwoWays();
 
-        // TypeAdapterConfig<TenentQueryDTO, Tenant>
-        //         .NewConfig()
-        //         .Map(dest => dest.Id, src => src.Id)
-        //         .Map(dest => dest.TenantName, src => src.Name)
 
-        //         .Map(dest => dest.Email, src => src.Email)
-        //         .Map(dest => dest.Phone, src => src.Phone)
-        //         .Map(dest => dest.Address.AddressLine1, src => src.AddressLine1)
-        //         .Map(dest => dest.Address.City, src => src.City)
-        //         .TwoWays();
+        /*
+        var config = TypeAdapterConfig<(DTO1, DTO2, DTO3), POCO>.NewConfig()
+                   .Map(dest => dest.Age, src => src.Item1.Age)
+                   .Map(dest => dest.ID, src => src.Item2.ID)
+                   .Map(dest => dest.Name, src => src.Item3.Name);
+
+        */
     }
+    static void MapTenantAndCreateCommandDTO()
+    {
+        TypeAdapterConfig<CreateTenantCommand, Tenant>.NewConfig()
+            .Map(dest => dest.Description, src => src.Details)
+            .Map(dest => dest.Email, src => src.Email)
+            .Map(dest => dest.Phone, src => src.Phone)
+            .Map(dest => dest.TenantName, src => src.Name)
+            .Map(dest => dest.Address, src => src.Adapt<Address>())
+            .Map(dest => dest.TenantHostels, src => src.Hostels.Adapt<List<TenantHostel>>())
+                ;
+
+        TypeAdapterConfig<CreateTenantCommand, Address>.NewConfig()
+            .Map(dest => dest.AddressLine1, src => src.AddressLine1)
+            .Map(dest => dest.AddressLine2, src => src.AddressLine2)
+            .Map(dest => dest.City, src => src.City)
+            .Map(dest => dest.State, src => src.state)
+            .Map(dest => dest.ZipCode, src => src.Zip);
+
+        TypeAdapterConfig<TenantHostelDTO, TenantHostel>.NewConfig()
+            .Map(dest => dest.Name, src => src.Name)
+            .Map(dest => dest.IsActive, src => src.IsActive)
+        .Map(dest => dest.Tags, src => src.Tags
+                        .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                        .Select(s => s.Trim())
+                        .ToList()
+            )
+        //.Map(dest => dest.Tags, src => GetList(src.CommaSeparatedValues<Tag>))
+        ;
+    }
+
+    // private static List<T> GetList<T>(string commaSeparatedValues)
+    // {
+    //   return  commaSeparatedValues
+    //         .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+    //         .Select(s => s.Trim())
+    //         .ToList();
+    // }
 }
-
-
-
-

@@ -1,4 +1,5 @@
 
+using MegaApp.Application.Interfaces.Persistance;
 using MegaApp.Domain.Entities;
 
 namespace MegaApp.Application.Interfaces.Persistance
@@ -10,4 +11,10 @@ namespace MegaApp.Application.Interfaces.Persistance
         bool IsTenantIsValid(int tenantId);
 
     }
+}
+
+public interface ITagRepository : IGenericRepository<Tag>
+{
+
+    Task UpsertTags(List<Tag> tags, int userID);
 }
